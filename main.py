@@ -1,4 +1,4 @@
-import discord, os, random, requests
+import discord, os, random, requests, asyncio
 from discord.ext import commands
 from bot_logic import *
 
@@ -37,7 +37,7 @@ async def pasw(ctx):
 
 @bot.command()
 async def tolong(ctx):
-    await ctx.send('Commands : $hello, $senyum, $koin, $warna, $heart, $pasw, $meme, $duck, $polusi')
+    await ctx.send('Commands : $hello, $senyum, $koin, $warna, $heart, $pasw, $meme, $duck, $polusi, timer')
 
 @bot.command()
 async def meme(ctx):
@@ -59,7 +59,12 @@ async def polusi(ctx):
     fact_name = random.choice(os.listdir('facts'))
     with open(f'facts/{fact_name}', 'r', encoding='utf-8') as f:
         await ctx.send(f.read())
-    
+
+@bot.command()
+async def timer(ctx, detik: int):
+    await ctx.send(f"Timer dimulai selama {detik} detik!")
+    await asyncio.sleep(detik)
+    await ctx.send("⏰ Timer selesai!")
 
 def get_duck_image_url():    
     url = 'https://random-d.uk/api/random'
